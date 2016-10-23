@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -36,6 +37,9 @@ func (api AmazonMWSAPI) ListInventorySupply(skus []string) ([]ProductStock, erro
 	var xml, err = api.mwsCall("/FulfillmentInventory", "ListInventorySupply", params)
 	if err != nil {
 		return []ProductStock{}, err
+	}
+	if strings.HasPrefix(xml, "<ErrorResponse") {
+		return []ProductStock{}, errors.New(stripErrorMessage(xml))
 	}
 	members := listInventorySupplydecode(xml)
 	return members, nil
