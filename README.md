@@ -1,5 +1,10 @@
 # MWS API
 
+Use the [mws](https://developer.amazonservices.com/) api in a simpler way.
+
+* [API](https://developer.amazonservices.fr/gp/mws/docs.html)
+
+
 Usage
 ```
 package main
