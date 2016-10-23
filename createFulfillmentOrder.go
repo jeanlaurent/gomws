@@ -13,13 +13,12 @@ import (
 
 //Address structure Input to fullfillment
 type Address struct {
-	Name                string
-	Line1               string
-	Line2               string
-	City                string
-	StateOrProvinceCode string
-	CountryCode         string
-	PostalCode          string
+	Name        string
+	Line1       string
+	Line2       string
+	City        string
+	CountryCode string
+	PostalCode  string
 }
 
 //FulfillmentItem Input param
