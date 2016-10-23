@@ -5,7 +5,29 @@ Use the [mws](https://developer.amazonservices.com/) api in a simpler way.
 * [API](https://developer.amazonservices.fr/gp/mws/docs.html)
 
 
-Usage
+usage via http server
+```
+http://localhost:8080/stock?skus=KH-VGFD-TGLN,P0-PDD6-VHFT
+```
+returns
+```
+[
+	{
+		SellerSKU: "KH-VGFD-TGLN",
+		ASIN: "B01HH3HTFQ",
+		Quantity: 16,
+		InStockSupplyQuantity: 15
+	},
+	{
+		SellerSKU: "P0-PDD6-VHFT",
+		ASIN: "B01H7ALDZ6",
+		Quantity: 40,
+		InStockSupplyQuantity: 40
+	}
+]
+```
+
+Usage via API
 ```
 package main
 

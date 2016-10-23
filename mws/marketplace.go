@@ -1,5 +1,6 @@
-package main
+package mws
 
+// http://docs.developer.amazonservices.com/en_US/dev_guide/DG_Endpoints.html
 const (
 	marketPlaceUK string = "A1F83G8C2ARO7P" // (Amazon.co.uk)
 	marketPlaceDE string = "A1PA6795UKMFR9" // (Amazon.de)

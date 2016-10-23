@@ -1,4 +1,4 @@
-package main
+package mws
 
 import (
 	"crypto/hmac"
@@ -28,7 +28,8 @@ type AmazonMWSAPI struct {
 	client *http.Client
 }
 
-func newAmazonMWSAPI(seller Seller) *AmazonMWSAPI {
+//NewAmazonMWSAPI creates an AmazonMWSAPI
+func NewAmazonMWSAPI(seller Seller) *AmazonMWSAPI {
 	return &AmazonMWSAPI{Seller: seller, EndPoint: "https://mws-eu.amazonservices.com", Version: "2010-10-01", client: http.DefaultClient}
 }
 

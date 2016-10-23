@@ -1,4 +1,4 @@
-package main
+package mws
 
 import (
 	"errors"
