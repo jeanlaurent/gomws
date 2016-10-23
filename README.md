@@ -25,7 +25,7 @@ func main() {
 	item := FulfillmentItem{SellerSKU: "KH-VGFD-TGLN", Quantity: 1}
 	items := []FulfillmentItem{item}
 
-	requestID, err := api.CreateFulfillmentOrder("test-14", items, address)
+	requestID, err := api.CreateFulfillmentOrder("test-14", items, address, "Thank you for your order")
 	if err != nil {
 		fmt.Println("error !")
 		fmt.Println(err)

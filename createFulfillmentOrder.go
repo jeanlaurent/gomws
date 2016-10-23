@@ -29,7 +29,7 @@ type FulfillmentItem struct {
 }
 
 //CreateFulfillmentOrder create a fullfillment order in MWS
-func (api AmazonMWSAPI) CreateFulfillmentOrder(orderID string, items []FulfillmentItem, destinationAddress Address) (string, error) {
+func (api AmazonMWSAPI) CreateFulfillmentOrder(orderID string, items []FulfillmentItem, destinationAddress Address, orderComment string) (string, error) {
 	params := make(map[string]string)
 
 	params["MarketplaceId"] = marketPlaceFR
@@ -37,7 +37,7 @@ func (api AmazonMWSAPI) CreateFulfillmentOrder(orderID string, items []Fulfillme
 	params["FulfillmentAction"] = "Hold"
 	params["DisplayableOrderId"] = orderID
 	params["DisplayableOrderDateTime"] = time.Now().UTC().Format(ISO8601)
-	params["DisplayableOrderComment"] = "Serpodile vous remercie de votre commande."
+	params["DisplayableOrderComment"] = orderComment
 	params["ShippingSpeedCategory"] = "Standard"
 	params["DestinationAddress.Name"] = destinationAddress.Name
 	params["DestinationAddress.Line1"] = destinationAddress.Line1
