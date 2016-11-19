@@ -25,6 +25,7 @@ func NewServer(port int, seller mws.Seller) Server {
 func (server *Server) Start() {
 	router := mux.NewRouter()
 
+	router.HandleFunc("/", errorHandler(server.root)).Methods("GET")
 	router.HandleFunc("/sentViaAmazon", errorHandler(server.createFulfillmentHandlerFunc)).Methods("POST")
 	router.HandleFunc("/stock", errorHandler(server.listInventorySupplyHandlerFunc)).Methods("GET")
 
@@ -32,6 +33,11 @@ func (server *Server) Start() {
 
 	fmt.Println("listening on", server.Port)
 	http.ListenAndServe(fmt.Sprintf(":%d", server.Port), nil)
+}
+
+func (server *Server) root(response http.ResponseWriter, request *http.Request) error {
+	response.Write([]byte("MWS bridge"))
+	return nil
 }
 
 func (server *Server) createFulfillmentHandlerFunc(response http.ResponseWriter, request *http.Request) error {
