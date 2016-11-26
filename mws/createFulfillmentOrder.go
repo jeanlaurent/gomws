@@ -13,54 +13,66 @@ import (
 
 //Address structure Input to fullfillment
 type Address struct {
-	Name        string
-	Line1       string
-	Line2       string
-	City        string
-	CountryCode string
-	PostalCode  string
+	Name        string `json:"name"`
+	Line1       string `json:"line2"`
+	Line2       string `json:"line1"`
+	City        string `json:"city"`
+	CountryCode string `json:"countryCode"`
+	PostalCode  string `json:"postalCode"`
 }
 
 //FulfillmentItem Input param
 type FulfillmentItem struct {
-	SellerSKU string
-	Quantity  int
+	SellerSKU string `json:"sku"`
+	Quantity  int    `json:"quantity"`
+}
+
+// Order input Param
+type Order struct {
+	ID              string            `json:"id"`
+	Items           []FulfillmentItem `json:"items"`
+	ShippingAddress Address           `json:"shippingAddress"`
+	Comment         string            `json:"comment"`
+}
+
+type FullfillmentReturn struct {
+	RequestID string `json:"requestID"`
 }
 
 //CreateFulfillmentOrder create a fullfillment order in MWS
-func (api AmazonMWSAPI) CreateFulfillmentOrder(orderID string, items []FulfillmentItem, destinationAddress Address, orderComment string) (string, error) {
+func (api AmazonMWSAPI) CreateFulfillmentOrder(order Order) (FullfillmentReturn, error) {
 	params := make(map[string]string)
 
 	params["MarketplaceId"] = marketPlaceFR
-	params["SellerFulfillmentOrderId"] = orderID
+	params["SellerFulfillmentOrderId"] = order.ID
 	params["FulfillmentAction"] = "Hold"
-	params["DisplayableOrderId"] = orderID
+	params["DisplayableOrderId"] = order.ID
 	params["DisplayableOrderDateTime"] = time.Now().UTC().Format(ISO8601)
-	params["DisplayableOrderComment"] = orderComment
+	params["DisplayableOrderComment"] = order.Comment
 	params["ShippingSpeedCategory"] = "Standard"
-	params["DestinationAddress.Name"] = destinationAddress.Name
-	params["DestinationAddress.Line1"] = destinationAddress.Line1
-	params["DestinationAddress.Line2"] = destinationAddress.Line2
-	params["DestinationAddress.City"] = destinationAddress.City
-	params["DestinationAddress.CountryCode"] = destinationAddress.CountryCode
-	params["DestinationAddress.PostalCode"] = destinationAddress.PostalCode
+	params["DestinationAddress.Name"] = order.ShippingAddress.Name
+	params["DestinationAddress.Line1"] = order.ShippingAddress.Line1
+	params["DestinationAddress.Line2"] = order.ShippingAddress.Line2
+	params["DestinationAddress.City"] = order.ShippingAddress.City
+	params["DestinationAddress.CountryCode"] = order.ShippingAddress.CountryCode
+	params["DestinationAddress.PostalCode"] = order.ShippingAddress.PostalCode
 
-	for index, item := range items {
+	for index, item := range order.Items {
 		params[fmt.Sprintf("Items.member.%d.SellerSKU", (index+1))] = item.SellerSKU
 		params[fmt.Sprintf("Items.member.%d.Quantity", (index+1))] = strconv.Itoa(item.Quantity)
-		params[fmt.Sprintf("Items.member.%d.SellerFulfillmentOrderItemId", (index+1))] = fmt.Sprintf("%s.%d", orderID, (index + 1))
+		params[fmt.Sprintf("Items.member.%d.SellerFulfillmentOrderItemId", (index+1))] = fmt.Sprintf("%s.%d", order.ID, (index + 1))
 	}
 
 	var xmlstring, err = api.mwsCall("/FulfillmentOutboundShipment", "CreateFulfillmentOrder", params)
 	if err != nil {
-		return "", err
+		return FullfillmentReturn{}, err
 	}
 	if strings.HasPrefix(xmlstring, "<ErrorResponse") {
-		return "", errors.New(stripErrorMessage(xmlstring))
+		return FullfillmentReturn{}, errors.New(stripErrorMessage(xmlstring))
 	}
 	requestID, err := stripSingleString(xmlstring, "RequestId")
 	if err != nil {
-		return "", errors.New("Can't find requestID")
+		return FullfillmentReturn{}, errors.New("Can't find requestID")
 	}
-	return requestID, nil
+	return FullfillmentReturn{requestID}, nil
 }

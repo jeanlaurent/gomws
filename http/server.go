@@ -41,6 +41,23 @@ func (server *Server) root(response http.ResponseWriter, request *http.Request) 
 }
 
 func (server *Server) createFulfillmentHandlerFunc(response http.ResponseWriter, request *http.Request) error {
+	decoder := json.NewDecoder(request.Body)
+	var order mws.Order
+	err := decoder.Decode(&order)
+	if err != nil {
+		return err
+	}
+	defer request.Body.Close()
+	requestID, err := server.mws.CreateFulfillmentOrder(order)
+	if err != nil {
+		return err
+	}
+	json, err := json.Marshal(requestID)
+	if err != nil {
+		return err
+	}
+	response.Header().Set("Content-Type", "application/json")
+	response.Write(json)
 	return nil
 }
 
