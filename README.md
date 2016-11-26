@@ -1,11 +1,28 @@
-# MWS API
+# MWS BRIDGE
 
 Use the [mws](https://developer.amazonservices.com/) api in a simpler way.
 
 * [API](https://developer.amazonservices.fr/gp/mws/docs.html)
 
+## prerequisite
 
-usage via http server
+* golang 1.7
+* docker 1.12
+
+## build
+
+`make`
+
+## run
+
+```
+export MWSSellerID=zzzz
+export MWSAccessKey=yyyy
+export MWSSecretKey='xxxx'
+make run
+```
+
+## usage via http server
 ```
 http://localhost:8080/stock?skus=KH-VGFD-TGLN,P0-PDD6-VHFT
 ```
