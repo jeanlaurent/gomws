@@ -1,3 +1,6 @@
+depends: clean
+	go get .
+
 all: clean
 	mkdir _build
 	env GOOS=linux GOARCH=386 go build -o _build/mws-bridge .
