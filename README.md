@@ -52,12 +52,12 @@ POST /sentViaAmazon
 	"id":"4567",
 	"items" : [{"sku":"GDTE-DJSB-SNSB", quantity: 3}, {"sku":"MSNS-SNSN-KSJW", quantity: 2}],
 	"shippingAddress" : {
-		"name":
-		"line1":
-		"line2":
-		"city":
-		"countryCode":
-		"postalCode":
+		"name": "Robert Polka",
+		"line1": "88, rue edimbourg",
+		"line2": "",
+		"city": "Paris",
+		"countryCode": "FR",
+		"postalCode": "78800"
 	},
 	"comment":"Thank you !"
 }
