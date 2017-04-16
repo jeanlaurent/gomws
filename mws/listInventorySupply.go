@@ -17,10 +17,10 @@ func (api AmazonMWSAPI) ListInventorySupplyServiceStatus() (string, error) {
 
 // ProductStock represents a Product with it's associated stock
 type ProductStock struct {
-	SellerSKU             string `xml:"SellerSKU"`
-	ASIN                  string `xml:"ASIN"`
-	Quantity              int    `xml:"TotalSupplyQuantity"`
-	InStockSupplyQuantity int    `xml:"InStockSupplyQuantity"`
+	SellerSKU             string `xml:"sellerSKU"`
+	ASIN                  string `xml:"asin"`
+	Quantity              int    `xml:"totalSupplyQuantity"`
+	InStockSupplyQuantity int    `xml:"inStockSupplyQuantity"`
 }
 
 // ListInventorySupply returns the corresponding product stock for a given list of product skus

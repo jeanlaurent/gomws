@@ -62,6 +62,23 @@ POST /sentViaAmazon
 	"comment":"Thank you !"
 }
 ```
+returns
+```
+[
+	{
+		"sellerSKU": "a1",
+		"asin":"aaaaa",
+		"totalSupplyQuantity":4,
+		"inStockSupplyQuantity":4
+	},
+	{
+		"sellerSKU": "a2",
+		"asin":"aaaaa2",
+		"totalSupplyQuantity":5,
+		"inStockSupplyQuantity":3
+	},
+]
+```
 
 ## Usage via API
 ```
