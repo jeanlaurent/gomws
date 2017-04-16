@@ -28,7 +28,7 @@ func main() {
 
 func getEnvOrFail(key string) string {
 	if os.Getenv(key) == "" {
-		fmt.Println("Error : missing environement variable", key)
+		fmt.Println("Error : missing environment variable", key)
 		os.Exit(-1)
 	}
 	return os.Getenv(key)

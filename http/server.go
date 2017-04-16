@@ -40,6 +40,17 @@ func (server *Server) root(response http.ResponseWriter, request *http.Request) 
 	return nil
 }
 
+// POST /sentViaAmazon
+/*
+{
+	"id":"4567",
+	"items" : [{"sku":"GDTE-DJSB-SNSB", quantity: 3}, {"sku":"MSNS-SNSN-KSJW", quantity: 2}],
+	"shippingAddress" : {
+
+	},
+	"comment":"Thank you !"
+}
+*/
 func (server *Server) createFulfillmentHandlerFunc(response http.ResponseWriter, request *http.Request) error {
 	decoder := json.NewDecoder(request.Body)
 	var order mws.Order
@@ -61,7 +72,7 @@ func (server *Server) createFulfillmentHandlerFunc(response http.ResponseWriter,
 	return nil
 }
 
-// /stock?skus=a1,a2,a3
+// GET stock?skus=a1,a2,a3
 func (server *Server) listInventorySupplyHandlerFunc(response http.ResponseWriter, request *http.Request) error {
 	var skuString = request.URL.Query().Get("skus")
 	fmt.Println("--->", skuString)

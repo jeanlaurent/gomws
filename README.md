@@ -23,8 +23,10 @@ make run
 ```
 
 ## usage via http server
+
+### Get stock for given SKU
 ```
-http://localhost:8080/stock?skus=KH-VGFD-TGLN,P0-PDD6-VHFT
+GET http://localhost:8080/stock?skus=KH-VGFD-TGLN,P0-PDD6-VHFT
 ```
 returns
 ```
@@ -43,8 +45,25 @@ returns
 	}
 ]
 ```
+### Sent a package
+```
+POST /sentViaAmazon
+{
+	"id":"4567",
+	"items" : [{"sku":"GDTE-DJSB-SNSB", quantity: 3}, {"sku":"MSNS-SNSN-KSJW", quantity: 2}],
+	"shippingAddress" : {
+		"name":
+		"line1":
+		"line2":
+		"city":
+		"countryCode":
+		"postalCode":
+	},
+	"comment":"Thank you !"
+}
+```
 
-Usage via API
+## Usage via API
 ```
 package main
 
