@@ -33,7 +33,7 @@ func (api AmazonMWSAPI) ListInventorySupply(skus []string) ([]ProductStock, erro
 	}
 
 	params["ResponseGroup"] = "Basic"
-
+	//http://docs.developer.amazonservices.com/en_US/fba_inventory/
 	var xml, err = api.mwsCall("/FulfillmentInventory", "ListInventorySupply", params)
 	if err != nil {
 		return []ProductStock{}, err

@@ -19,6 +19,10 @@ type Seller struct {
 	SecretKey string
 }
 
+// to get tracking numbers :
+//FulfillmentOutboundShipment
+// _GET_AMAZON_FULFILLED_SHIPMENTS_DATA_
+
 // AmazonMWSAPI holds all amazon MWS Api function
 type AmazonMWSAPI struct {
 	Seller   Seller

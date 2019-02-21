@@ -26,8 +26,8 @@ func (server *Server) Start() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", errorHandler(server.root)).Methods("GET")
-	router.HandleFunc("/sentViaAmazon", errorHandler(server.createFulfillmentHandlerFunc)).Methods("POST")
 	router.HandleFunc("/stock", errorHandler(server.listInventorySupplyHandlerFunc)).Methods("GET")
+	router.HandleFunc("/sentViaAmazon", errorHandler(server.createFulfillmentHandlerFunc)).Methods("POST")
 
 	http.Handle("/", router)
 
